@@ -1,8 +1,16 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/blogifydb
+    url: jdbc:postgresql://localhost:5433/blogifydb
     username: blogify
     password: blogify123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   security:
     oauth2:

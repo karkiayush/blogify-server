@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -25,14 +25,19 @@ public class User {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
     @Column(name = "password", nullable = false)
     private String password;
+
     @Column(name = "image", nullable = false)
     private String image;
+
     @Column(name = "bio")
     private String bio;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
     @Column(name = "updated_at", nullable = false, updatable = true)
     private LocalDateTime updatedAt;
 
