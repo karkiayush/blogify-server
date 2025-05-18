@@ -2,6 +2,7 @@ package com.karkiayush.blogifybackend.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,10 +23,11 @@ public class User {
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private UUID id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 50)
+    @Email(message = "Email should be valid")
     private String email;
 
     @Column(name = "password", nullable = false)
@@ -34,7 +36,7 @@ public class User {
     @Column(name = "image", nullable = false)
     private String image;
 
-    @Column(name = "bio")
+    @Column(name = "bio", length = 500)
     private String bio;
 
     @Column(name = "created_at", nullable = false)
@@ -43,8 +45,12 @@ public class User {
     @Column(name = "updated_at", nullable = false, updatable = true)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Blog> blogs=new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Blog> blogs = new ArrayList<>();
+
+    /*User ----> Comments {one to many}*/
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

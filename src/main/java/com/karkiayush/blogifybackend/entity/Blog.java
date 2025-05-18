@@ -56,6 +56,10 @@ public class Blog {
     )
     private List<Tag> tags = new ArrayList<>();
 
+    /*Blog ----> Comments {one to many}*/
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
     @PrePersist
     public void onCreate() {
         createdAt = LocalDateTime.now();
