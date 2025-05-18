@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: blogify_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: blogify
+      POSTGRES_DB: blogifydb
+      POSTGRES_PASSWORD: blogify123
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - blogifynet
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: blogify_keycloak
+    restart: always
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres # database vendor that keycloak is using
+      KC_DB_URL: jdbc:postgresql://db:5432/blogifydb
+      KC_DB_USERNAME: blogify
+      KC_DB_PASSWORD: blogify123
+    ports:
+        - "9090:8080"
+    depends_on:
+      - db
+    networks:
+      - blogifynet
+
+volumes:
+  pgdata:
+
+networks:
+    blogifynet:
+
+# docker exec -it container_name -U postgresname -d database_name: to get inside the db container
