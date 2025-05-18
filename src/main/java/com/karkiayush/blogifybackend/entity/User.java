@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -40,6 +42,9 @@ public class User {
 
     @Column(name = "updated_at", nullable = false, updatable = true)
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Blog> blogs=new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

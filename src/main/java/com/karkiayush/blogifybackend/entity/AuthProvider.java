@@ -1,4 +1,4 @@
 package com.karkiayush.blogifybackend.entity;
 
-public class AuthProviders {
+public class AuthProvider {
 }
