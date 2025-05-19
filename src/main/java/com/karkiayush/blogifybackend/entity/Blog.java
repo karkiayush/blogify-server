@@ -15,7 +15,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Table(name = "blogs")
-
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -63,6 +62,10 @@ public class Blog {
     /*Blog--->Bookmark{One to many}*/
     @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bookmark> bookmarks = new ArrayList<>();
+
+    /*Blog -> BlogLikes {One-Many}*/
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BlogLikes> blogLikes = new ArrayList<>();
 
     @PrePersist
     public void onCreate() {

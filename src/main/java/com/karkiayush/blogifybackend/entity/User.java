@@ -64,6 +64,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AuthProvider> authProviders = new ArrayList<>();
 
+    /*User->BlogLikes{One to Many as user steven can like as many blogs as he wants}*/
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BlogLikes> blogLikes = new ArrayList<>();
+
+    /*User->CommentLikes {OneToMany}*/
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentLikes> commentLikes = new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

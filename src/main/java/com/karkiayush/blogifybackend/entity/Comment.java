@@ -54,6 +54,10 @@ public class Comment {
     @JoinColumn(name = "blog_id", nullable = false)
     private Blog blog;
 
+    /*Comment->CommentLikes {One->Many}*/
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentLikes> commentLikes = new ArrayList<>();
+
     @PrePersist
     public void onCreate() {
         createdAt = LocalDateTime.now();
